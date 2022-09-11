@@ -1,8 +1,8 @@
 require('dotenv').config();
 const mongoose = require('mongoose');
 
-mongoose.connect("mongodb+srv://dbUser1:tSATRnSo21NpqmPB@cluster0.obsituy.mongodb.net/?retryWrites=true&w=majority", { useNewUrlParser: true, useUnifiedTopology: true },(err)=>{
-  if(err){
+mongoose.connect("mongodb+srv://dbUser1:tSATRnSo21NpqmPB@cluster0.obsituy.mongodb.net/?retryWrites=true&w=majority", { useNewUrlParser: true, useUnifiedTopology: true }, (err) => {
+  if (err) {
     console.log(err);
   }
   console.log("database connected");
@@ -13,11 +13,11 @@ const personSchema = mongoose.Schema({
     type: String,
     required: true
   },
-  age:{
+  age: {
     type: Number,
     required: true
   },
-  favoriteFoods:{
+  favoriteFoods: {
     type: [String],
     required: true
   }
@@ -32,13 +32,22 @@ const createAndSavePerson = (done) => {
     favoriteFoods: ["sandwitch", "burger"]
   });
 
-  person.save((err, data)=>{
+  person.save((err, data) => {
     done(null, data);
   });
 };
 
+let arrayOfPeople = [
+  { name: "Lazz", age: 17, favoriteFoods: ["kachhi", "ice-cream"] },
+  { name: "Mukta", age: 50, favoriteFoods: ["kachhi", "ice-cream"] },
+  { name: "Shofi", age: 60, favoriteFoods: ["kachhi", "ice-cream"] }
+]
+
 const createManyPeople = (arrayOfPeople, done) => {
-  done(null /*, data*/);
+  Person.create(arrayOfPeople, (err, data)=>{
+    done(null, data);
+  })
+
 };
 
 const findPeopleByName = (personName, done) => {
