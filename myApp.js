@@ -73,7 +73,10 @@ const findEditThenSave = (personId, done) => {
   
   Person.findById(personId, (err, data) => {
     data.favoriteFoods.push(foodToAdd);
-    done(null, data);
+    data.save((err, updatedData) => {
+      if(err) return console.log(err);
+      done(null, updatedData);
+    })
   })
 };
 
